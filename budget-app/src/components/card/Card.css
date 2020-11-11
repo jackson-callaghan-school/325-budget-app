@@ -1,9 +1,10 @@
 .card-container {
   display: flex;
   flex-direction: column;
-  width: 95vw;
-  height: 75vh;
+  width: 99vw;
+  height: 85vh;
   margin: auto;
+  margin-top: 10vh;
   background-color: white;
   color: black;
   border-radius: 5px;
