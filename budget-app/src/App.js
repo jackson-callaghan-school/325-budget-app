@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from './components/card/Card';
 import 'swiper/swiper-bundle.min.css'
 import './App.css';
@@ -9,6 +10,11 @@ function App() {
 
   return (
     <div className="App">
+      <div className='header-container'>
+        <div />
+        <div className='header-title'>Header</div>
+        <div />
+      </div>
       <div className='container'>
         <Swiper
           spaceBetween={50}
@@ -21,6 +27,7 @@ function App() {
           <SwiperSlide>
             <Card title='test card'>
               <div className="center">hello!</div>
+              <button className='fab pos-bottom-right' onClick={() => { console.log('fab pressed') }}>+</button>
             </Card>
           </SwiperSlide>
           <SwiperSlide>
