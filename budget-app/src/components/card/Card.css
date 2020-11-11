@@ -3,16 +3,25 @@
   flex-direction: column;
   width: 95vw;
   height: 75vh;
-  margin: auto;
+  margin: 10px auto;
   background-color: white;
   color: black;
   border-radius: 5px;
   box-shadow: black 0 2px 8px 2px;
+  overflow-y: hidden;
   /* align-items: center; */
   /* justify-content: center; */
 }
 
-.title {
+.card-title {
+  /* position: sticky; */
   font-size: 1.5rem;
   margin: 15px 0;
+}
+
+.card-body {
+  position: relative;
+  flex-grow: 1;
+  overflow-y: auto;
+  mask-image: linear-gradient(to bottom, transparent, black 1%, black 98%, transparent);
 }
