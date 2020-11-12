@@ -4,6 +4,7 @@ import 'swiper/swiper-bundle.min.css'
 import './App.css';
 import SwiperCore, { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Drawer from './components/drawer/Drawer.jsx';
 
 function App() {
   SwiperCore.use([Pagination]);
@@ -27,12 +28,17 @@ function App() {
           <SwiperSlide>
             <Card title='test card'>
               <div className="center">hello!</div>
-              <button className='fab pos-bottom-right' onClick={() => { console.log('fab pressed') }}>+</button>
+              <button id = "addBtn"className='fab pos-bottom-right' onClick={() => {
+                document.getElementById("drawerContainer").style.display = "block";
+                document.getElementById("addBtn").style.display = "none";
+                console.log('fab pressed')}}>+</button>
+                <Drawer></Drawer>
             </Card>
           </SwiperSlide>
           <SwiperSlide>
             <Card title='test card ... again!'>
               <div className="center">hello again!</div>
+              <Drawer></Drawer>
             </Card>
           </SwiperSlide>
           <div className='swiper-pagnation'></div>
