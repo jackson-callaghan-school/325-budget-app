@@ -1,0 +1,56 @@
+.subBucketContainer {
+  background-color: lightgray;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+}
+
+.subSummary {
+  flex-grow: 1;
+  margin: 0.5em;
+  padding: 0.5em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: larger;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.subBucketAmount {
+  flex-shrink: 0;
+}
+
+.label {
+  text-align: left;
+  font-size: small;
+  margin-bottom: 1px;
+}
+
+.progressContainer {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.summaryProgressPlaceholder {
+  height: 10px;
+  width: 100%;
+  background-color: blue;
+}
+
+.subExpenseContainer {
+  margin-bottom: 0.5em;
+}

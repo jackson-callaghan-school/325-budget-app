@@ -24,5 +24,11 @@
   position: relative;
   flex-grow: 1;
   overflow-y: auto;
-  mask-image: linear-gradient(to bottom, transparent, black 1%, black 98%, transparent);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 1%,
+    black 98%,
+    transparent
+  );
 }

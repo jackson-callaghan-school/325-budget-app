@@ -1,0 +1,42 @@
+.expenseContainer {
+  margin: 5px;
+  background-color: lightgray;
+  border-radius: 3px;
+}
+
+.expenseInner {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  overflow: hidden;
+}
+
+.expenseInner.sub {
+  padding: 0em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.expenseName {
+  flex-grow: 1;
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.expenseAmount {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.progressPlaceholder {
+  flex-shrink: 0;
+  height: 10px;
+  width: 25vw;
+  background-color: blue;
+}
