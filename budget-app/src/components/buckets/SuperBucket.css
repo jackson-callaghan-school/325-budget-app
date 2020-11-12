@@ -1,0 +1,28 @@
+.super-bucket-overview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px 25px;
+  margin: 5px;
+}
+
+.super-bucket-title {
+  font-size: 1.3rem;
+  align-self: center;
+}
+
+.super-bucket-overview label {
+  width: 100%;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: start;
+}
+
+.super-bucket-overview input {
+  padding: 7px;
+  font-size: 1rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
