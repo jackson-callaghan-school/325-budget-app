@@ -65,6 +65,13 @@ html, body {
   right: 20px;
 }
 
+.surface {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  box-shadow: black 0 2px 12px -3px;
+}
+
 .App {
   display: flex;
   flex-direction: column;
