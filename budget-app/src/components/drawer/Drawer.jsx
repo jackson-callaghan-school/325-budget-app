@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BlockPicker } from 'react-color';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import './Drawer.css';
 
-const Drawer = ({ visible, onClose, onSubmit }) => {
+const Drawer = ({ visible, onClose, onSubmit, currentBucket }) => {
+  const [color, setColor] = useState('#22a6b3');
+  const [colorPickerVisible, setColorPickerVisible] = useState(false);
+
   if (!visible) return null;
   return (
     <div id="drawerContainer" className="drawerContainer">
@@ -30,7 +34,10 @@ const Drawer = ({ visible, onClose, onSubmit }) => {
             </form>
 
           </div>
-          <div id="circle" className="circle"></div>
+          <div className='colorGroup'>
+            <button id="circle" className="circle" style={{ backgroundColor: color }} onClick={() => {setColorPickerVisible(!colorPickerVisible)}}></button>
+            {colorPickerVisible && <BlockPicker color={color} onChange={(color) => { setColor(color.hex) }} />} 
+          </div>
         </TabPanel>
         <TabPanel>
           <div className="formSize">

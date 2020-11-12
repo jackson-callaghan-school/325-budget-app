@@ -70,13 +70,17 @@ li.react-tabs__tab--selected {
   background-color: #d5d8df;
 }
 
+.colorGroup {
+  z-index: 2;
+  position: absolute;
+  top: 25%;
+  left: 60%;
+}
+
 .circle {
   border: 1px solid;
   border-radius: 50%;
   width: 25px;
   height: 25px;
-  display: inline-block;
-  position: absolute;
-  top: 25%;
-  left: 60%;
+  margin: 10px;
 }
