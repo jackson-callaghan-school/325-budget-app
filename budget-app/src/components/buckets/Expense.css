@@ -1,6 +1,6 @@
 .expenseContainer {
   margin: 5px;
-  background-color: lightgray;
+  /* background-color: lightgray; */
   border-radius: 3px;
 }
 
@@ -36,7 +36,7 @@
 
 .progressPlaceholder {
   flex-shrink: 0;
-  height: 10px;
-  width: 25vw;
-  background-color: blue;
+  /* height: 10px; */
+  width: 25%;
+  /* background-color: blue; */
 }

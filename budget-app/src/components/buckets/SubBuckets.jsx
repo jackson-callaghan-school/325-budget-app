@@ -3,6 +3,7 @@ import './SubBuckets.css';
 import './Expense.css';
 import Expense from './Expense';
 import abbreviate from 'number-abbreviate';
+import { SegmentedProgressBar } from "../segmented-progress-bar/SegmentedProgressBar";
 
 export class SubBucket extends React.Component {
   constructor(props) {
@@ -10,7 +11,8 @@ export class SubBucket extends React.Component {
     this.state = {
       name: this.props.title || "",
       amount: this.props.amount || 0,
-      subExpenses: []
+      subExpenses: this.props.subExpenses,
+      color: this.props.color,
     };
   }
 
@@ -85,31 +87,30 @@ export class SubBucket extends React.Component {
       : abbreviate(this.state.amount, 5);
     const subExpenses = (
       this.state.subExpenses.map((subExpense, index) => {
-        return <Expense key={index} title={subExpense.name} amount={subExpense.amount} isSub={true} parentAmount={amount}/>
+        return <Expense key={index} title={subExpense.name} amount={subExpense.amount} color={subExpense.color} isSub={true} parentAmount={this.state.amount}/>
       })
+    );
+    const totalCostsList = this.state.subExpenses.map(
+      (cost) => ({ name: cost.name, value: (cost.amount / this.state.amount) * 100, color: cost.color })
     );
     const unassignedFunds = (1 - this.getChildSum()) / amount * 100; // use for first progressbar
     // TODO pass info to first progressbar
     // TODO pass required information to multicolor progressbar
     return (
-      <div className="subBucketContainer">
-        <div className="subSummary">
+      <div className="subBucketContainer surface">
+        <div className="subSummary" style={{borderColor: this.state.color || '#22a6b3'}}>
           <div className="titleContainer">
             <span className="title subBucketTitle">{name}</span>
             <span className="title subBucketAmount">${amount}</span>
           </div>
           <div className="progressContainer">
-            <div className="label unassigned">Unassigned Money</div>
-            <div className="summaryProgressPlaceholder"></div>
-          </div>
-          <div className="progressContainer">
-            <div className="label net balance">Balance</div>
-            <div className="summaryProgressPlaceholder"></div>
+            {/* <div className="label net balance">Balance</div> */}
+            <SegmentedProgressBar border={this.state.color} title='Balance' data={totalCostsList}/>
           </div>
         </div>
         <div className="subExpenseContainer">
-          <Expense title="inner1" amount={20} isSub={true}/>
-          <Expense title="inner2" amount={20} isSub={true}/>
+          {/* <Expense title="inner1" amount={20} isSub={true}/>
+          <Expense title="inner2" amount={20} isSub={true}/> */}
           {subExpenses}
         </div>
       </div>

@@ -15,34 +15,85 @@ function App() {
 
   const testSuperBucket = {
     name: 'Test Bucket',
-    total: 1450,
+    amount: 1450,
     subBuckets: [
       {
         name: 'Housing',
-        total: 700,
-        expenses: [
+        amount: 700,
+        color: '#eeaaee',
+        subExpenses: [
           {
             name: 'Rent',
-            total: 550,
+            amount: 550,
             color: '#aa00aa'
           },
           {
             name: 'Utilities',
-            total: 150,
+            amount: 150,
             color: '#ffee00'
           }
         ]
       }
     ],
-    expenses: [
+    subExpenses: [
       {
         name: 'Pizza',
-        total: 50,
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
+        color: '#ee2222'
+      },
+      {
+        name: 'Pizza',
+        amount: 50,
         color: '#ee2222'
       },
       {
         name: 'Random',
-        total: 110,
+        amount: 110,
         color: '#ffaa22'
       }
     ]
@@ -82,8 +133,6 @@ function App() {
           </SwiperSlide>
           <SwiperSlide>
             <Card title='test card ... again!'>
-              <div className="center">hello again!</div>
-              <Drawer></Drawer>
             </Card>
           </SwiperSlide>
           <div className='swiper-pagnation'></div>
