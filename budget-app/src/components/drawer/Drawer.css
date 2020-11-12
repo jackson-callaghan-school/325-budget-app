@@ -1,0 +1,65 @@
+  .drawerContainer {
+    flex-grow: 1;
+    display: none;
+    background-color: #d5d8df;
+    width: 100%;
+    height: 50%;
+    top: 53%;
+    position: absolute;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+  }
+
+.formSize{
+    text-align: justify;
+    position: absolute;
+    top: 18%;
+    left: 5%;
+}
+
+.xBox{
+    color: rgb(0, 0, 0);
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    top: 70%;
+    left: 20%;
+    position: absolute;
+    cursor: pointer;
+}
+.check {
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 24px;
+    width: 12px;
+    border-bottom: 7px solid black;
+    border-right: 7px solid black;
+    top: 70%;
+    left: 70%;
+    position: absolute;
+  }
+
+.tabPosition{
+    position: absolute;
+    top: -9%;
+    left: 15%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    padding-left: 2%;
+}
+
+.circle {
+    border: 1px solid;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: absolute;
+    top: 25%;
+    left: 60%;
+  }
