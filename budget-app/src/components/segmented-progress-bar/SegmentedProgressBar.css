@@ -1,0 +1,18 @@
+.segmented-progress-bar {
+  width: 100%;
+  text-align: start;
+}
+
+.segmented-progress-bar .title {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  /* align-self: start; */
+}
+
+.segmented-progress-bar .bars {
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  background-color: #ddd;
+  height: 20px;
+}
