@@ -67,7 +67,7 @@ export class Expense extends React.Component {
           {this.state.amountEdit && <input name="amountEdit" type="number" className="expenseAmount" placeholder={"$" + amount} onChange={(e) => this.setAmount(e.target.value)} />}
           {this.state.amountEdit && <span onClick={this.toggleAmountEdit}>✓</span>}
           {!this.state.amountEdit && <span className="expenseAmount" onClick={this.toggleAmountEdit}>${amount}</span>}
-          <SegmentedProgressBar className='progressPlaceholder' data={[{ name: this.state.name, value: level, color: this.state.color }]} />
+          <SegmentedProgressBar className='progressPlaceholder' thin data={[{ name: this.state.name, value: level, color: this.state.color }]} />
         </div>
       </div>
     )

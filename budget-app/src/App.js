@@ -141,7 +141,7 @@ function App() {
     <div className="App">
       <div className='header-container'>
         <div />
-        <div className='header-title'>Header</div>
+        <div className='header-title'>Bucket Budgeting</div>
         <div />
       </div>
       <div className='container'>
