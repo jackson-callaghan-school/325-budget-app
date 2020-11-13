@@ -37,3 +37,7 @@
   flex-shrink: 0;
   width: 25%;
 }
+
+.nameEdit {
+  flex-grow: 0;
+}
