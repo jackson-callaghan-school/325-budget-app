@@ -13,7 +13,14 @@ export class SubBucket extends React.Component {
       amount: this.props.amount || 0,
       subExpenses: this.props.subExpenses,
       color: this.props.color,
+      nameEdit: false,
+      amountEdit: false
     };
+
+    this.toggleNameEdit = this.toggleNameEdit.bind(this);
+    this.toggleAmountEdit = this.toggleAmountEdit.bind(this);
+    this.setName = this.setName.bind(this);
+    this.setAmount = this.setAmount.bind(this);
   }
 
   getChildSum() {
@@ -37,7 +44,7 @@ export class SubBucket extends React.Component {
   }
 
   setAmount(amount) {
-    this.setState({amount: amount});
+    this.setState({amount: parseFloat(amount)});
   }
 
   getSubExpenses() {
@@ -80,6 +87,20 @@ export class SubBucket extends React.Component {
     this.setState({subExpenses: []});
   }
 
+  toggleNameEdit() {
+    this.setState({nameEdit: !this.state.nameEdit});
+    if (this.state.amountEdit) {
+      this.setState({amountEdit: false})
+    }
+  }
+
+  toggleAmountEdit() {
+    this.setState({amountEdit: !this.state.amountEdit});
+    if (this.state.nameEdit) {
+      this.setState({nameEdit: false})
+    }
+  }
+
   render() {
     const name = this.state.name;
     const amount = this.state.amount < 9999999
@@ -94,14 +115,18 @@ export class SubBucket extends React.Component {
       (cost) => ({ name: cost.name, value: (cost.amount / this.state.amount) * 100, color: cost.color })
     );
     const unassignedFunds = (1 - this.getChildSum()) / amount * 100; // use for first progressbar
-    // TODO pass info to first progressbar
-    // TODO pass required information to multicolor progressbar
     return (
       <div className="subBucketContainer surface">
         <div className="subSummary" style={{borderColor: this.state.color || '#22a6b3'}}>
           <div className="titleContainer">
-            <span className="title subBucketTitle">{name}</span>
-            <span className="title subBucketAmount">${amount}</span>
+            {this.state.nameEdit && <input name="nameEdit" className="subBucketTitle" placeholder={name} onChange={(e) => this.setName(e.target.value)} />}
+          {this.state.nameEdit && <span onClick={this.toggleNameEdit}>✓</span>}
+          {!this.state.nameEdit && <span className="subBucketTitle" onClick={this.toggleNameEdit}>{name}</span>}
+            {/* <span className="title subBucketTitle">{name}</span> */}
+            {this.state.amountEdit && <input name="amountEdit" type="number" className="SubBucketAmount" placeholder={"$" + amount} onChange={(e) => this.setAmount(e.target.value)} />}
+          {this.state.amountEdit && <span onClick={this.toggleAmountEdit}>✓</span>}
+          {!this.state.amountEdit && <span className="SubBucketAmount" onClick={this.toggleAmountEdit}>${amount}</span>}
+            {/* <span className="title subBucketAmount">${amount}</span> */}
           </div>
           <div className="progressContainer">
             {/* <div className="label net balance">Balance</div> */}

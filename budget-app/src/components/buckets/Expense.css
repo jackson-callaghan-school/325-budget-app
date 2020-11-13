@@ -40,3 +40,7 @@
   width: 25%;
   /* background-color: blue; */
 }
+
+.nameEdit {
+  flex-grow: 0;
+}
