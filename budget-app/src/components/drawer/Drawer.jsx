@@ -18,43 +18,47 @@ const Drawer = ({ visible, onClose, onSubmit, currentBucket }) => {
         </TabList>
 
         <TabPanel>
-          <div className="formSize">
+          <span className="formSize">
             <form>
-              <label>
+              <label className="bucketDrawerLabel">
                 Bucket Name:
-                <br />
-                <input type="text" name="name" placeholder="Name" />
               </label>
+                <br />
+                <input type="text" name="name" placeholder="Name" className="bucketDrawerInput" />
               <br />
-              <label>
+              <label className="bucketDrawerLabel">
                 Bucket Allowance:
-                <br />
-                <input type="text" name="allowance" placeholder="$1000.00" />
               </label>
+                <br />
+                <input type="text" name="allowance" placeholder="$1000.00" className="bucketDrawerInput"  />
             </form>
 
-          </div>
-          <div className='colorGroup'>
+          </span>
+          <span className='colorGroup'>
             <button id="circle" className="circle" style={{ backgroundColor: color }} onClick={() => {setColorPickerVisible(!colorPickerVisible)}}></button>
-            {colorPickerVisible && <BlockPicker color={color} onChange={(color) => { setColor(color.hex) }} />} 
-          </div>
+            {colorPickerVisible && <BlockPicker color={color} onChange={(color) => { setColor(color.hex) }} className="blockPicker" />}
+          </span>
         </TabPanel>
         <TabPanel>
-          <div className="formSize">
+          <span className="formSize">
             <form>
-              <label>
+              <label className="bucketDrawerLabel">
                 Expense Name:
-                <br />
-                <input type="text" name="name" placeholder="Name" />
               </label>
+                <br />
+                <input type="text" name="name" placeholder="Name" className="bucketDrawerInput"  />
               <br />
-              <label>
+              <label className="bucketDrawerLabel">
                 Expense Cost:
-                <br />
-                <input type="text" name="allowance" placeholder="$1000.00" />
               </label>
+                <br />
+                <input type="text" name="allowance" placeholder="$1000.00" className="bucketDrawerInput"  />
             </form>
-          </div>
+          </span>
+          <span className='colorGroup'>
+            <button id="circle" className="circle" style={{ backgroundColor: color }} onClick={() => {setColorPickerVisible(!colorPickerVisible)}}></button>
+            {colorPickerVisible && <BlockPicker color={color} onChange={(color) => { setColor(color.hex) }} className="blockPicker" />}
+          </span>
         </TabPanel>
       </Tabs>
 

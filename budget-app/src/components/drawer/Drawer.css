@@ -4,7 +4,8 @@
   bottom: 0;
   flex-grow: 1;
   display: block;
-  background-color: #d5d8df;
+  /* background-color: #d5d8df; */
+  background-color: white;
   width: 100%;
   height: 50%;
   top: 53%;
@@ -15,16 +16,35 @@
   /* border-width: 1px; */
 }
 
-.formSize{
+.formSize {
   text-align: justify;
-  position: absolute;
-  top: 18%;
-  left: 5%;
+  /* position: absolute; */
+  /* top: 18%;
+  left: 5%; */
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  max-width: 45vw;
+  margin: 0.25em;
+  margin-top: 1em;
 }
 
-.xBox{
+.bucketDrawerLabel {
+  font-size: small;
+}
+
+.bucketDrawerInput {
+  width: 100%;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: start;
+}
+
+.xBox {
   color: rgb(0, 0, 0);
-  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif;
   font-size: 2em;
   font-weight: bold;
   text-align: center;
@@ -36,6 +56,7 @@
   position: absolute;
   cursor: pointer;
 }
+
 .check {
   display: inline-block;
   transform: rotate(45deg);
@@ -48,8 +69,9 @@
   position: absolute;
 }
 
-.tabPosition{
-  background-color: #85878b;
+.tabPosition {
+  /* background-color: #85878b; */
+  background-color: #d5d8df;
   display: flex;
   padding: 0;
   margin: 0;
@@ -60,14 +82,23 @@
 }
 
 li.react-tabs__tab {
-  background-color: #85878b;
+  /* background-color: #85878b; */
+  background-color: #d5d8df;
   border: none;
   border-radius: 15px 15px 0 0;
   bottom: 0;
 }
 
 li.react-tabs__tab--selected {
-  background-color: #d5d8df;
+  /* background-color: #d5d8df; */
+  background-color: white;
+}
+
+.react-tabs__tab-panel {
+  /* display: flex; */
+  /* align-content: center; */
+  align-items: center;
+  height: 100%;
 }
 
 .colorGroup {
@@ -80,7 +111,9 @@ li.react-tabs__tab--selected {
 .circle {
   border: 1px solid;
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  margin: 10px;
+  width: 35px;
+  height: 35px;
+  /* position: absolute;
+  top: 25%;
+  left: 60%; */
 }
