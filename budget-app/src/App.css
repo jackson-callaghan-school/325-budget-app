@@ -12,9 +12,8 @@ html, body {
 }
 
 .container {
-  flex-grow: 1;
+  height: calc(100% - 60px);
   display: flex;
-  /* height: 100%; */
   background-color: #484f5e;
 }
 
@@ -36,6 +35,12 @@ html, body {
 
 .swiper-container {
   margin: auto;
+  height: 100%;
+}
+
+.swiper-wrapper {
+  margin-top: 20px;
+  height: 90%;
 }
 
 .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
@@ -60,6 +65,25 @@ html, body {
   cursor: pointer;
 }
 
+.fab-large {
+  width: 120px;
+  height: 120px;
+  font-size: 5rem;
+}
+
+.fab-title {
+  margin-top: 10px;
+  font-size: 1.5rem;
+}
+
+.center {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
 .pos-bottom-right {
   bottom: 20px;
   right: 20px;
@@ -80,17 +104,6 @@ html, body {
   background-color: #282c34;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  display: none;
-}
-
-.overlay.hidden {
-  display: block;
-  animation-name: overlay-fadeout;
-  animation-duration: .5s;
-}
- 
-.overlay.shown {
   opacity: .7;
   animation-name: overlay-fadein;
   animation-duration: .5s;

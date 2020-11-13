@@ -6,7 +6,6 @@
 .segmented-progress-bar .title {
   font-size: 1.1rem;
   margin-bottom: 5px;
-  /* align-self: start; */
 }
 
 .segmented-progress-bar .bars {
@@ -14,5 +13,4 @@
   overflow: hidden;
   display: flex;
   background-color: #ddd;
-  height: 20px;
 }

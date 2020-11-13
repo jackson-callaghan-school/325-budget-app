@@ -14,13 +14,15 @@ import './SegmentedProgressBar.css';
 /**
  * Segmented progress bar component
  */
-export const SegmentedProgressBar = ({ data, title, className, border }) => {
+export const SegmentedProgressBar = ({ data, title, className, border, thin }) => {
   const bars = data && data.length && data.map((item, i) => {
     // wont display is value is less than 0 (can be changed)
     if (item.value > 0) {
       return (
         <div className='bar' key={i} style={{ backgroundColor: item.color || '#22a6b3', width: item.value + '%' }} />
       )
+    } else {
+      return null;
     }
   })
 
@@ -28,8 +30,8 @@ export const SegmentedProgressBar = ({ data, title, className, border }) => {
   return (
     <div className={'segmented-progress-bar ' + className}>
       {title && <div className="title">{title}</div>}
-      <div className='bars '  style={{border: border ? '2px solid ' + border : 'none'}}>
-        {bars === '' ? '' : bars}
+      <div className='bars '  style={{border: border ? '2px solid ' + border : 'none', height: thin ? 12 : 20}}>
+        {bars || null}
       </div>
     </div>
   )

@@ -19,8 +19,8 @@ export class SubBucket extends React.Component {
   getChildSum() {
     return this.state.subExpenses.length > 0
       ? this.state.subExpenses.reduce((a, c) => {
-          return a + c.amount;
-        })
+        return a + c.amount;
+      })
       : 0;
   }
 
@@ -29,7 +29,7 @@ export class SubBucket extends React.Component {
   }
 
   setName(name) {
-    this.setState({name: name});
+    this.setState({ name: name });
   }
 
   getAmount() {
@@ -37,7 +37,7 @@ export class SubBucket extends React.Component {
   }
 
   setAmount(amount) {
-    this.setState({amount: amount});
+    this.setState({ amount: amount });
   }
 
   getSubExpenses() {
@@ -45,13 +45,13 @@ export class SubBucket extends React.Component {
   }
 
   getSubExpense(name) {
-    const result = this.state.subExpenses.filter(expense =>  expense.name === name );
+    const result = this.state.subExpenses.filter(expense => expense.name === name);
     return result.length > 0 ? result[0] : false;
   }
 
   addSubExpense(name, amount) {
-    const updatedArray = this.state.subExpenses.concat({name, amount});
-    this.setState({subExpenses: updatedArray});
+    const updatedArray = this.state.subExpenses.concat({ name, amount });
+    this.setState({ subExpenses: updatedArray });
   }
 
   updateSubExpense(name, newValue, updateName = false) {
@@ -66,18 +66,18 @@ export class SubBucket extends React.Component {
     const updatedArray = this.state.subExpenses.filter(expense => expense.name !== name);
     updatedArray.push(updatedExpense);
 
-    this.setState({subExpenses: updatedArray});
+    this.setState({ subExpenses: updatedArray });
 
     return true;
   }
 
   removeSubExpense(name) {
     const updatedArray = this.state.subExpenses.filter(expense => expense.name !== name);
-    this.setState({subExpenses: updatedArray});
+    this.setState({ subExpenses: updatedArray });
   }
 
   clearSubExpense() {
-    this.setState({subExpenses: []});
+    this.setState({ subExpenses: [] });
   }
 
   render() {
@@ -87,30 +87,34 @@ export class SubBucket extends React.Component {
       : abbreviate(this.state.amount, 5);
     const subExpenses = (
       this.state.subExpenses.map((subExpense, index) => {
-        return <Expense key={index} title={subExpense.name} amount={subExpense.amount} color={subExpense.color} isSub={true} parentAmount={this.state.amount}/>
+        return <Expense key={index} title={subExpense.name} amount={subExpense.amount} color={subExpense.color} isSub={true} parentAmount={this.state.amount} />
       })
     );
     const totalCostsList = this.state.subExpenses.map(
       (cost) => ({ name: cost.name, value: (cost.amount / this.state.amount) * 100, color: cost.color })
     );
     const unassignedFunds = (1 - this.getChildSum()) / amount * 100; // use for first progressbar
-    // TODO pass info to first progressbar
-    // TODO pass required information to multicolor progressbar
     return (
       <div className="subBucketContainer surface">
-        <div className="subSummary" style={{borderColor: this.state.color || '#22a6b3'}}>
+        <div className="subSummary" style={{borderBottom: this.state.subExpenses.length > 0 ? 'solid 1px #ddd': 'none'}}>
           <div className="titleContainer">
-            <span className="title subBucketTitle">{name}</span>
+            <span className="title subBucketTitle">
+              {name}
+              <div style={{
+                width: 14, height: 14,
+                backgroundColor: this.state.color,
+                borderRadius: '50%',
+                marginLeft: 5,
+              }}
+              />
+            </span>
             <span className="title subBucketAmount">${amount}</span>
           </div>
           <div className="progressContainer">
-            {/* <div className="label net balance">Balance</div> */}
-            <SegmentedProgressBar border={this.state.color} title='Balance' data={totalCostsList}/>
+            <SegmentedProgressBar title='Balance' data={totalCostsList} />
           </div>
         </div>
         <div className="subExpenseContainer">
-          {/* <Expense title="inner1" amount={20} isSub={true}/>
-          <Expense title="inner2" amount={20} isSub={true}/> */}
           {subExpenses}
         </div>
       </div>

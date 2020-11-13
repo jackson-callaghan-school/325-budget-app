@@ -1,103 +1,141 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from './components/card/Card';
 import 'swiper/swiper-bundle.min.css'
 import './App.css';
-import SwiperCore, { Pagination } from 'swiper';
+import SwiperCore, { Pagination, Virtual } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SuperBucket } from './components/buckets/SuperBucket';
 import Drawer from './components/drawer/Drawer.jsx';
 
 function App() {
   SwiperCore.use([Pagination]);
+  const [swiper, setSwiper] = useState(null);
 
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
 
-  const testSuperBucket = {
-    name: 'Test Bucket',
-    amount: 1450,
-    subBuckets: [
-      {
-        name: 'Housing',
-        amount: 700,
-        color: '#eeaaee',
-        subExpenses: [
-          {
-            name: 'Rent',
-            amount: 550,
-            color: '#aa00aa'
-          },
-          {
-            name: 'Utilities',
-            amount: 150,
-            color: '#ffee00'
-          }
-        ]
+  const testData = [
+    {
+      name: 'Test Bucket',
+      amount: 1450,
+      subBuckets: [
+        {
+          name: 'Housing',
+          amount: 700,
+          color: '#eeaaee',
+          subExpenses: [
+            {
+              name: 'Rent',
+              amount: 550,
+              color: '#aa00aa'
+            },
+            {
+              name: 'Utilities',
+              amount: 150,
+              color: '#ffee00'
+            }
+          ]
+        }
+      ],
+      subExpenses: [
+        {
+          name: 'Pizza',
+          amount: 50,
+          color: '#ee2222'
+        },
+        {
+          name: 'Random',
+          amount: 110,
+          color: '#ffaa22'
+        }
+      ]
+    },
+    {
+      name: 'Test Bucket 2',
+      amount: 1450,
+      subBuckets: [
+        {
+          name: 'ETFS',
+          amount: 550,
+          color: '#008822',
+          subExpenses: [
+            {
+              name: 'Vanguard',
+              amount: 150,
+            },
+            {
+              name: 'JP Morgan',
+              amount: 400,
+              color: '#ee0000'
+            }
+          ]
+        },
+        {
+          name: 'Bonds',
+          amount: 437.93,
+          color: '#3311ff',
+          subExpenses: [
+            {
+              name: 'James',
+              amount: 250,
+              color: '#ffeeaa'
+            },
+            {
+              name: 'Covalent',
+              amount: 187.93,
+              color: '#eeffaa'
+            }
+          ]
+        }
+      ],
+      subExpenses: [
+        {
+          name: 'Extra',
+          amount: 50,
+          color: '#ee2222'
+        },
+        {
+          name: 'Extra',
+          amount: 50,
+          color: '#ee2222'
+        },
+        {
+          name: 'Extra',
+          amount: 50,
+          color: '#ee2222'
+        },
+        {
+          name: 'Extra',
+          amount: 50,
+          color: '#ee2222'
+        },
+      ]
+    },
+  ];
+
+  const [superBuckets, setSuperBuckets] = useState(testData);
+  const addNewBucket = () => {
+    setSuperBuckets(superBuckets.concat({ name: 'New Bucket', amount: 0, subBuckets: [], subExpenses: [] }));
+  }
+  const removeBucket = (index) => {
+    setSuperBuckets(superBuckets.filter((superBucket, key) => key !== index));
+  }
+  const editBucket = (index, params) => {
+    setSuperBuckets(superBuckets.map((superBucket, key) => {
+      if (key === index) {
+        return {
+          ...superBucket,
+          ...params
+        }
+      } else {
+        return superBucket
       }
-    ],
-    subExpenses: [
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Pizza',
-        amount: 50,
-        color: '#ee2222'
-      },
-      {
-        name: 'Random',
-        amount: 110,
-        color: '#ffaa22'
-      }
-    ]
-  };
+    }))
+  }
+
+  useEffect(() => {
+    swiper && swiper.update();
+  }, [superBuckets])
 
   return (
     <div className="App">
@@ -114,25 +152,31 @@ function App() {
             el: '.swiper-pagnation',
             clickable: true,
           }}
+          onSwiper={(swiper) => {
+            setSwiper(swiper);
+          }}
         >
+          {superBuckets.map((superBucket, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <SuperBucket key={index} index={index}
+                  data={superBucket}
+                  onClickAdd={() => {
+                    setDrawerVisible(!drawerVisible)
+                    setOverlayVisible(!overlayVisible)
+                  }}
+                  editBucket={editBucket}
+                  removeBucket={removeBucket}
+                />
+              </SwiperSlide>
+            )
+          })}
           <SwiperSlide>
-            <SuperBucket data={testSuperBucket} onClickAdd={() => {
-              setDrawerVisible(!drawerVisible)
-              setOverlayVisible(!overlayVisible)
-            }} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card title='drawer test'>
-              <button id="addBtn" className='fab pos-bottom-right' onClick={() => {
-                document.getElementById("drawerContainer").style.display = "block";
-                document.getElementById("addBtn").style.display = "none";
-                console.log('fab pressed')
-              }}>+</button>
-              <Drawer></Drawer>
-            </Card>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card title='test card ... again!'>
+            <Card>
+              <div className='center'>
+                <button className='fab fab-large' style={{ position: 'static' }} onClick={() => { addNewBucket() }}>+</button>
+                <div className='fab-title'>Add New Super Bucket</div>
+              </div>
             </Card>
           </SwiperSlide>
           <div className='swiper-pagnation'></div>
@@ -142,7 +186,10 @@ function App() {
         setOverlayVisible(!overlayVisible);
         setDrawerVisible(!drawerVisible);
       }} />
-      <div className={'overlay ' + overlayVisible ? 'shown' : 'hidden'} />
+      {overlayVisible && <div className={'overlay'} onClick={() => {
+        setOverlayVisible(!overlayVisible);
+        setDrawerVisible(!drawerVisible);
+      }} />}
     </div>
   );
 }

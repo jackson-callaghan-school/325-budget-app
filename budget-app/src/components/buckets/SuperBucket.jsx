@@ -23,25 +23,33 @@ import './SuperBucket.css'
  * 
  * expense: {
  *    name: string, name of expense
- *    total:  number, total amount of money spent on expense
+ *    amount:  number, total amount of money spent on expense
  *    color: string, color of expense
  * }total
  */
 
 
-export const SuperBucket = ({ data, onClickAdd }) => {
+export const SuperBucket = ({ data, onClickAdd, editBucket, index, removeBucket}) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const totalCostsList = data.subBuckets.concat(data.subExpenses).map(
     (cost) => ({ name: cost.name, value: (cost.amount / data.amount) * 100, color: cost.color })
   );
-  // called everytime data changes
+  // called every time data changes
   useEffect(() => {
 
   }, [data])
 
   return (
-    <Card title={data.name}>
+    <Card title={data.name}
+      onSubmit={(title) => {
+        editBucket(index, {name: title});
+      }}
+      onDelete={() => {
+        console.log(index);
+        removeBucket(index);
+      }}
+    >
       <div className='super-bucket-overview surface'>
         <div className='super-bucket-title'>Overview</div>
         <label>

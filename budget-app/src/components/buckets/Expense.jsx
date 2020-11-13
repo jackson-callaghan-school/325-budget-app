@@ -36,15 +36,12 @@ export class Expense extends React.Component {
         : abbreviate(this.state.amount, 5);
     const isSub = this.props.isSub;
     const level = (this.state.amount / this.props.parentAmount) * 100;
-    // console.log(this.state.amount/this.props.parentAmount * 100);
-    console.log(level);
-    // TODO pass info to progressbar
     return (
       <div className={isSub ? "" : "expenseContainer" + " surface"}>
         <div className={isSub ? "sub expenseInner" : "expenseInner"}>
           <span className="expenseName">{name}</span>
           <span className="expenseAmount">${amount}</span>
-          <SegmentedProgressBar className='progressPlaceholder' data={[{ name: this.state.name, value: level, color: this.state.color }]} />
+          <SegmentedProgressBar className='progressPlaceholder' thin data={[{ name: this.state.name, value: level, color: this.state.color }]} />
         </div>
       </div>
     )
