@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { BlockPicker } from 'react-color';
+import { CirclePicker } from 'react-color';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 import 'react-tabs/style/react-tabs.css';
 import './Drawer.css';
 
@@ -17,55 +19,59 @@ const Drawer = ({ visible, onClose, onSubmit, currentBucket }) => {
           <Tab variant="width">New Expense</Tab>
         </TabList>
 
-        <TabPanel>
+        <TabPanel className='bucketGrid'>
           <span className="formSize">
             <form>
-              <label className="bucketDrawerLabel">
+              <label className="bucketDrawerLabel name">
                 Bucket Name:
-              </label>
-                <br />
                 <input type="text" name="name" placeholder="Name" className="bucketDrawerInput" />
-              <br />
-              <label className="bucketDrawerLabel">
-                Bucket Allowance:
               </label>
-                <br />
-                <input type="text" name="allowance" placeholder="$1000.00" className="bucketDrawerInput"  />
+              <label className="bucketDrawerLabel allowance">
+                Bucket Allowance:
+                <input type="text" name="allowance" placeholder="$1000.00" className="bucketDrawerInput" />
+              </label>
             </form>
 
           </span>
           <span className='colorGroup'>
-            <button id="circle" className="circle" style={{ backgroundColor: color }} onClick={() => {setColorPickerVisible(!colorPickerVisible)}}></button>
-            {colorPickerVisible && <BlockPicker color={color} onChange={(color) => { setColor(color.hex) }} className="blockPicker" />}
+            <button id="circle" className="circle" style={{ backgroundColor: color, borderColor: color }} onClick={() => { setColorPickerVisible(!colorPickerVisible) }}></button>
           </span>
         </TabPanel>
-        <TabPanel>
+        <TabPanel className='bucketGrid'>
           <span className="formSize">
             <form>
               <label className="bucketDrawerLabel">
                 Expense Name:
+                <input type="text" name="name" placeholder="Name" className="bucketDrawerInput" />
               </label>
-                <br />
-                <input type="text" name="name" placeholder="Name" className="bucketDrawerInput"  />
-              <br />
               <label className="bucketDrawerLabel">
                 Expense Cost:
+                <input type="text" name="allowance" placeholder="$1000.00" className="bucketDrawerInput" />
               </label>
-                <br />
-                <input type="text" name="allowance" placeholder="$1000.00" className="bucketDrawerInput"  />
             </form>
           </span>
           <span className='colorGroup'>
-            <button id="circle" className="circle" style={{ backgroundColor: color }} onClick={() => {setColorPickerVisible(!colorPickerVisible)}}></button>
-            {colorPickerVisible && <BlockPicker color={color} onChange={(color) => { setColor(color.hex) }} className="blockPicker" />}
+            <button id="circle" className="circle" style={{ backgroundColor: color, borderColor: color }} onClick={() => { setColorPickerVisible(!colorPickerVisible) }}></button>
           </span>
         </TabPanel>
       </Tabs>
 
       <div className="xBox">
-        <span id="x" onClick={onClose}>X</span>
+        <CloseIcon onClick={() => {
+          onClose();
+          setColorPickerVisible(false);
+        }}
+          style={{ fontSize: 40 }}
+        />
       </div>
-      <div className="check"></div>
+      <div className="check">
+        <CheckIcon onClick={() => {
+          onSubmit();
+          setColorPickerVisible(false);
+        }}
+          style={{ fontSize: 40 }} />
+      </div>
+      {colorPickerVisible && <CirclePicker color={color} onChange={(color) => { setColor(color.hex) }} className="circlePicker surface" />}
     </div>
   )
 }

@@ -7,16 +7,29 @@
   /* background-color: #d5d8df; */
   background-color: white;
   width: 100%;
-  height: 50%;
-  top: 53%;
+  height: 35%;
   position: absolute;
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   overflow: hidden;
+  animation-name: pull-up;
+  animation-duration: .5s;
   /* border-style: solid; */
   /* border-width: 1px; */
 }
 
+.react-tabs {
+  height: 100%;
+}
+
+.bucketGrid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  grid-template-areas: 'form color';
+}
+
 .formSize {
+  align-self: center;
   text-align: justify;
   /* position: absolute; */
   /* top: 18%;
@@ -25,8 +38,9 @@
   flex-direction: column;
   align-content: center;
   max-width: 45vw;
-  margin: 0.25em;
-  margin-top: 1em;
+  margin: 0.5em;
+  /* margin-top: 1em; */
+  grid-area: form;
 }
 
 .bucketDrawerLabel {
@@ -45,12 +59,11 @@
 .xBox {
   color: rgb(0, 0, 0);
   font-family: "Helvetica", "Arial", sans-serif;
-  font-size: 2em;
+  font-size: large;
   font-weight: bold;
   text-align: center;
   width: 40px;
   height: 40px;
-  border-radius: 5px;
   top: 70%;
   left: 20%;
   position: absolute;
@@ -58,19 +71,15 @@
 }
 
 .check {
-  display: inline-block;
-  transform: rotate(45deg);
-  height: 24px;
-  width: 12px;
-  border-bottom: 7px solid black;
-  border-right: 7px solid black;
+  height: 40px;
+  width: 40px;
   top: 70%;
   left: 70%;
   position: absolute;
+  cursor: pointer;
 }
 
 .tabPosition {
-  /* background-color: #85878b; */
   background-color: #d5d8df;
   display: flex;
   padding: 0;
@@ -82,7 +91,6 @@
 }
 
 li.react-tabs__tab {
-  /* background-color: #85878b; */
   background-color: #d5d8df;
   border: none;
   border-radius: 15px 15px 0 0;
@@ -102,10 +110,20 @@ li.react-tabs__tab--selected {
 }
 
 .colorGroup {
+  grid-area: color;
+  align-self: center;
   z-index: 2;
-  position: absolute;
+  /* position: absolute; */
   top: 25%;
   left: 60%;
+}
+
+.circlePicker {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 14px 0 0 14px;
 }
 
 .circle {
@@ -113,7 +131,9 @@ li.react-tabs__tab--selected {
   border-radius: 50%;
   width: 35px;
   height: 35px;
-  /* position: absolute;
-  top: 25%;
-  left: 60%; */
+}
+
+@keyframes pull-up {
+  0%   {bottom: -35%}
+  100% {bottom: 0}
 }
