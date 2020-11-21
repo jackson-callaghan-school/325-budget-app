@@ -24,15 +24,15 @@ export class SubBucket extends React.Component {
   }
 
   getChildSum() {
-    return this.state.subExpenses.length > 0
-      ? this.state.subExpenses.reduce((a, c) => {
-        return a + c.amount;
-      })
+    return this.props.subExpenses.length > 0
+      ? this.props.subExpenses.reduce((a, c) => {
+        return {amount: a.amount + c.amount};
+      }).amount
       : 0;
   }
 
   getName() {
-    return this.state.name;
+    return this.props.name;
   }
 
   setName(name) {
@@ -40,7 +40,7 @@ export class SubBucket extends React.Component {
   }
 
   getAmount() {
-    return this.state.amount;
+    return this.props.amount;
   }
 
   setAmount(amount) {
@@ -48,16 +48,16 @@ export class SubBucket extends React.Component {
   }
 
   getSubExpenses() {
-    return this.state.subExpenses;
+    return this.props.subExpenses;
   }
 
   getSubExpense(name) {
-    const result = this.state.subExpenses.filter(expense => expense.name === name);
+    const result = this.props.subExpenses.filter(expense => expense.name === name);
     return result.length > 0 ? result[0] : false;
   }
 
   addSubExpense(name, amount) {
-    const updatedArray = this.state.subExpenses.concat({ name, amount });
+    const updatedArray = this.props.subExpenses.concat({ name, amount });
     this.setState({ subExpenses: updatedArray });
   }
 
@@ -70,7 +70,7 @@ export class SubBucket extends React.Component {
       ? (updatedExpense.name = newValue)
       : (updatedExpense.amount = newValue);
 
-    const updatedArray = this.state.subExpenses.filter(expense => expense.name !== name);
+    const updatedArray = this.props.subExpenses.filter(expense => expense.name !== name);
     updatedArray.push(updatedExpense);
 
     this.setState({ subExpenses: updatedArray });
@@ -79,7 +79,7 @@ export class SubBucket extends React.Component {
   }
 
   removeSubExpense(name) {
-    const updatedArray = this.state.subExpenses.filter(expense => expense.name !== name);
+    const updatedArray = this.props.subExpenses.filter(expense => expense.name !== name);
     this.setState({ subExpenses: updatedArray });
   }
 
@@ -103,21 +103,21 @@ export class SubBucket extends React.Component {
 
   render() {
     const name = this.state.name;
-    const amount = this.state.amount < 9999999
-      ? this.state.amount.toFixed(2)
-      : abbreviate(this.state.amount, 5);
+    // const amount = this.state.amount < 9999999
+    //   ? this.state.amount.toFixed(2)
+    //   : abbreviate(this.state.amount, 5);
     const subExpenses = (
-      this.state.subExpenses.map((subExpense, index) => {
+      this.props.subExpenses.map((subExpense, index) => {
         return <Expense key={index} title={subExpense.name} amount={subExpense.amount} color={subExpense.color} isSub={true} parentAmount={this.state.amount} />
       })
     );
-    const totalCostsList = this.state.subExpenses.map(
-      (cost) => ({ name: cost.name, value: (cost.amount / this.state.amount) * 100, color: cost.color })
+    const totalCostsList = this.props.subExpenses.map(
+      (cost) => ({ name: cost.name, value: (cost.amount / this.props.amount) * 100, color: cost.color })
     );
-    const unassignedFunds = (1 - this.getChildSum()) / amount * 100; // use for first progressbar
+    const unassignedFunds = this.props.amount - this.getChildSum(); // use for first progressbar
     return (
       <div className="subBucketContainer surface">
-        <div className="subSummary" style={{ borderBottom: this.state.subExpenses.length > 0 ? 'solid 1px #ddd' : 'none' }}>
+        <div className="subSummary" style={{ borderBottom: this.props.subExpenses.length > 0 ? 'solid 1px #ddd' : 'none' }}>
           <div className="titleContainer">
             {this.state.nameEdit && <input name="nameEdit" className="subBucketTitle" placeholder={name} onChange={(e) => this.setName(e.target.value)} />}
             {this.state.nameEdit && <span onClick={this.toggleNameEdit}>✓</span>}
@@ -125,25 +125,26 @@ export class SubBucket extends React.Component {
               {name}
               <div style={{
                 width: 14, height: 14,
-                backgroundColor: this.state.color,
+                backgroundColor: this.props.color,
                 borderRadius: '50%',
                 marginLeft: 5,
               }}
               />
             </span>}
             {/* <span className="title subBucketTitle">{name}</span> */}
-            {this.state.amountEdit && <input name="amountEdit" type="number" className="SubBucketAmount" placeholder={"$" + amount} onChange={(e) => this.setAmount(e.target.value)} />}
+            {this.state.amountEdit && <input name="amountEdit" type="number" className="SubBucketAmount" placeholder={"$" + this.props.amount.toFixed(2)} onChange={(e) => this.setAmount(e.target.value)} />}
             {this.state.amountEdit && <span onClick={this.toggleAmountEdit}>✓</span>}
-            {!this.state.amountEdit && <span className="SubBucketAmount" onClick={this.toggleAmountEdit}>${amount}</span>}
+            {!this.state.amountEdit && <span className="SubBucketAmount" onClick={this.toggleAmountEdit}>${this.props.amount.toFixed(2)}</span>}
             {/* <span className="title subBucketAmount">${amount}</span> */}
           </div>
           <div className="progressContainer">
-            <SegmentedProgressBar title='Balance' data={totalCostsList} />
+            <SegmentedProgressBar title={`Balance – $${unassignedFunds.toFixed(2)} Remaining`} data={totalCostsList} />
           </div>
         </div>
         <div className="subExpenseContainer">
           {subExpenses}
         </div>
+        <div className="addExpenseContainer" onClick={() => {this.props.addSubBucketExpense(this.props.index)}}>+</div>
       </div>
     )
   }

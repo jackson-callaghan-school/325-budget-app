@@ -52,11 +52,11 @@ export class Expense extends React.Component {
 
   render() {
     const name = this.state.name,
-      amount = this.state.amount < 9999999
-        ? this.state.amount.toFixed(2)
-        : abbreviate(this.state.amount, 5);
+      amount = this.props.amount < 9999999
+        ? this.props.amount.toFixed(2)
+        : abbreviate(this.props.amount, 5);
     const isSub = this.props.isSub;
-    const level = (this.state.amount / this.props.parentAmount) * 100;
+    const level = (this.props.amount / this.props.parentAmount) * 100;
     return (
       <div className={isSub ? "" : "expenseContainer surface"}>
         <div className={isSub ? "sub expenseInner" : "expenseInner"}>
@@ -67,7 +67,7 @@ export class Expense extends React.Component {
           {this.state.amountEdit && <input name="amountEdit" type="number" className="expenseAmount" placeholder={"$" + amount} onChange={(e) => this.setAmount(e.target.value)} />}
           {this.state.amountEdit && <span onClick={this.toggleAmountEdit}>✓</span>}
           {!this.state.amountEdit && <span className="expenseAmount" onClick={this.toggleAmountEdit}>${amount}</span>}
-          <SegmentedProgressBar className='progressPlaceholder' thin data={[{ name: this.state.name, value: level, color: this.state.color }]} />
+          <SegmentedProgressBar className='progressPlaceholder' thin data={[{ name: this.props.name, value: level, color: this.props.color }]} />
         </div>
       </div>
     )

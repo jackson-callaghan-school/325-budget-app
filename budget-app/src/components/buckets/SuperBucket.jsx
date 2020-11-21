@@ -25,12 +25,19 @@ import './SuperBucket.css'
  *    name: string, name of expense
  *    amount:  number, total amount of money spent on expense
  *    color: string, color of expense
- * }total
+ * }
  */
 
 
-export const SuperBucket = ({ data, onClickAdd, editBucket, index, removeBucket}) => {
+export const SuperBucket = ({ data, onClickAdd, editBucket, index, removeBucket, addSubBucketExpense }) => {
   const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const totalCost = data.subBuckets.concat(data.subExpenses).reduce(
+    (accumlator, cost) => {
+      // console.log(accumlator + cost.amount)
+      return { amount: accumlator.amount + cost.amount }
+    }, { amount: 0 });
+  // console.log(totalCost);
 
   const totalCostsList = data.subBuckets.concat(data.subExpenses).map(
     (cost) => ({ name: cost.name, value: (cost.amount / data.amount) * 100, color: cost.color })
@@ -43,33 +50,35 @@ export const SuperBucket = ({ data, onClickAdd, editBucket, index, removeBucket}
   return (
     <Card title={data.name}
       onSubmit={(title) => {
-        editBucket(index, {name: title});
+        editBucket({ name: title });
       }}
       onDelete={() => {
-        console.log(index);
-        removeBucket(index);
+        removeBucket();
       }}
     >
       <div className='super-bucket-overview surface'>
         <div className='super-bucket-title'>Overview</div>
         <label>
           Total Available
-          <input name='total-available' placeholder={data.amount} />
+          <input name='total-available' value={data.amount} onChange={(e) => editBucket({ amount: e.currentTarget.value })} onFocus={(e) => (e.target.select())}/>
         </label>
-        <SegmentedProgressBar title='Net Balance' data={totalCostsList} />
+        <SegmentedProgressBar title={`Net Balance – $${(data.amount - totalCost.amount).toFixed(2)} Remaining`} data={totalCostsList} />
       </div>
       {data.subBuckets.map((subBucket, index) => {
         return <SubBucket
           key={index}
+          index={index}
           title={subBucket.name}
           amount={subBucket.amount}
           color={subBucket.color}
           subExpenses={subBucket.subExpenses}
+          addSubBucketExpense={addSubBucketExpense}
         />;
       })}
       {data.subExpenses.map((subExpense, index) => {
         return <Expense
           key={index}
+          index={index}
           title={subExpense.name}
           amount={subExpense.amount}
           color={subExpense.color}

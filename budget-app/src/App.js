@@ -6,13 +6,15 @@ import SwiperCore, { Pagination, Virtual } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SuperBucket } from './components/buckets/SuperBucket';
 import Drawer from './components/drawer/Drawer.jsx';
+import { AssignmentInd } from '@material-ui/icons';
 
 function App() {
   SwiperCore.use([Pagination]);
   const [swiper, setSwiper] = useState(null);
-
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
+  const [expenseOnly, setExpenseOnly] = useState(false);
+  const [currSubIndex, setCurrSubIndex] = useState(-1);
 
   const testData = [
     {
@@ -52,7 +54,7 @@ function App() {
     },
     {
       name: 'Test Bucket 2',
-      amount: 1450,
+      amount: 1550,
       subBuckets: [
         {
           name: 'ETFS',
@@ -130,8 +132,58 @@ function App() {
       } else {
         return superBucket
       }
+    }));
+  }
+  const addExpense = (index, expense) => {
+    setSuperBuckets(superBuckets.map((superBucket, key) => {
+      if (key === index) {
+        return {
+          ...superBucket,
+          subExpenses: [...superBucket.subExpenses, expense]
+        }
+      } else {
+        return superBucket
+      }
+    }));
+  }
+  const addSubBucket = (index, subBucket) => {
+    setSuperBuckets(superBuckets.map((superBucket, key) => {
+      if (key === index) {
+        // console.log([...superBucket.subExpenses, subBucket])
+        return {
+          ...superBucket,
+          subBuckets: [...superBucket.subBuckets, subBucket]
+        }
+      } else {
+        return superBucket;
+      }
     }))
   }
+  const addSubBucketExpense = (index, subIndex, expense) => {
+    setSuperBuckets(superBuckets.map((superBucket, key) => {
+      if (key === index) {
+        return {
+          ...superBucket,
+          subBuckets: superBucket.subBuckets.map((subBucket, subKey) => {
+            if (subKey === subIndex) {
+              return {
+                ...subBucket,
+                subExpenses: [...subBucket.subExpenses, expense]
+              };
+            } else {
+              return subBucket;
+            }
+          })
+        }
+      } else {
+        return superBucket;
+      }
+    }));
+  }
+
+  useEffect(() => {
+
+  }, [])
 
   useEffect(() => {
     swiper && swiper.update();
@@ -162,11 +214,18 @@ function App() {
                 <SuperBucket key={index} index={index}
                   data={superBucket}
                   onClickAdd={() => {
-                    setDrawerVisible(!drawerVisible)
-                    setOverlayVisible(!overlayVisible)
+                    setExpenseOnly(false);
+                    setDrawerVisible(!drawerVisible);
+                    setOverlayVisible(!overlayVisible);
                   }}
-                  editBucket={editBucket}
-                  removeBucket={removeBucket}
+                  editBucket={(param) => editBucket(index, param)}
+                  removeBucket={() => removeBucket(index)}
+                  addSubBucketExpense={(subIndex) => {
+                    setCurrSubIndex(subIndex);
+                    setExpenseOnly(true);
+                    setDrawerVisible(!drawerVisible);
+                    setOverlayVisible(!overlayVisible);
+                  }}
                 />
               </SwiperSlide>
             )
@@ -185,7 +244,20 @@ function App() {
       <Drawer visible={drawerVisible} onClose={() => {
         setOverlayVisible(!overlayVisible);
         setDrawerVisible(!drawerVisible);
-      }} />
+      }}
+        onSubmit={(type, toAdd) => {
+          if (!swiper) return;
+          if (type === 0) {
+            addSubBucket(swiper.activeIndex, toAdd);
+          } else if (type === 1) {
+            addExpense(swiper.activeIndex, toAdd)
+          } else if (type === 2) {
+            addSubBucketExpense(swiper.activeIndex, currSubIndex, toAdd);
+          }
+          console.log(superBuckets)
+        }}
+        expenseOnly={expenseOnly}
+      />
       {overlayVisible && <div className={'overlay'} onClick={() => {
         setOverlayVisible(!overlayVisible);
         setDrawerVisible(!drawerVisible);
